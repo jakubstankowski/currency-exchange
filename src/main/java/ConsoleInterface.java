@@ -30,7 +30,7 @@ public class ConsoleInterface {
                     case "buy":
                         System.out.println("How many " + currencyType + " you want buy? ");
                         getMoneyCount();
-                        System.out.println("Your order: " + currency.calculateExchange(currencyType, "sell", moneyCount) + " ZŁ");
+                        System.out.println("Your order: " + currency.calculateExchange(currencyType, "buy", moneyCount) + " ZŁ");
                         exit = true;
                         break;
                     case "sell":

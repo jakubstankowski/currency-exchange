@@ -42,9 +42,9 @@ class Currency {
     double calculateExchange(String currencyType, String exchangeType, double exchangeValue) {
         double finalExchangePrice = 0;
         if (exchangeType.equals("buy")) {
-            finalExchangePrice = exchangeValue * currencyPrices.get(currencyType.concat("-BUY"));
-        } else {
             finalExchangePrice = exchangeValue * currencyPrices.get(currencyType.concat("-SELL"));
+        } else {
+            finalExchangePrice = exchangeValue * currencyPrices.get(currencyType.concat("-BUY"));
         }
         return finalExchangePrice;
     }
