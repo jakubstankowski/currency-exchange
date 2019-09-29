@@ -26,15 +26,12 @@ class Currency {
         int currencyCount = 0;
 
         while (currencyCount < currencyType.size()) {
-            try {
-                double basicPrice = Double.parseDouble(String.valueOf(objectMapper.readTree(getRequest(API_URL)).get("rates").get((String) currencyType.get(currencyCount))));
-                double finallSellPrice = Math.round((1 / (basicPrice * buySpread)) * 100.0) / 100.0;
-                double finallBuyPrice = Math.round((1 / (basicPrice * sellSpread)) * 100.0) / 100.0;
-                currencyPrices.put(((String) currencyType.get(currencyCount)).concat("-SELL"), finallSellPrice);
-                currencyPrices.put(((String) currencyType.get(currencyCount)).concat("-BUY"), finallBuyPrice);
-            } catch (IOException e) {
-                throw new IOException();
-            }
+            double basicPrice = Double.parseDouble(String.valueOf(objectMapper.readTree(getRequest(API_URL)).get("rates").get((String) currencyType.get(currencyCount))));
+            System.out.println("Basic exchange " + currencyType.get(currencyCount) + " price: " + (Math.round((1 / (basicPrice)) * 100.0) / 100.0));
+            double finallSellPrice = Math.round((1 / (basicPrice * buySpread)) * 100.0) / 100.0;
+            double finallBuyPrice = Math.round((1 / (basicPrice * sellSpread)) * 100.0) / 100.0;
+            currencyPrices.put(((String) currencyType.get(currencyCount)).concat("-SELL"), finallSellPrice);
+            currencyPrices.put(((String) currencyType.get(currencyCount)).concat("-BUY"), finallBuyPrice);
             currencyCount++;
         }
         for (Map.Entry<String, Double> entry : this.currencyPrices.entrySet()) {
@@ -50,6 +47,10 @@ class Currency {
             finalExchangePrice = exchangeValue * currencyPrices.get(currencyType.concat("-SELL"));
         }
         return finalExchangePrice;
+    }
+
+    double returnSellValueForTest() {
+        return currencyPrices.get("EUR-SELL");
     }
 
     private static String streamToString(InputStream inputStream) {
