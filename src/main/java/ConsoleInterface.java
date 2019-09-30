@@ -60,7 +60,7 @@ public class ConsoleInterface {
     }
 
     public List addToCurrencyList() {
-        String[] everyCurrencyType = new String[]{"EUR", "USD", "GBP", "CHF", "HKD"};
+        String[] everyCurrencyType = new String[]{"EUR", "USD"};
         currencyList.addAll(Arrays.asList(everyCurrencyType));
         return currencyList;
     }

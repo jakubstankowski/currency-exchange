@@ -18,8 +18,6 @@ class Currency {
 
 
     public void showCurrencyPrice(List currencyType) throws IOException {
-        System.out.println(currencyType);
-
         final double sellSpread = 1.05;
         final double buySpread = 0.995;
 
@@ -27,7 +25,6 @@ class Currency {
 
         while (currencyCount < currencyType.size()) {
             double basicPrice = Double.parseDouble(String.valueOf(objectMapper.readTree(getRequest(API_URL)).get("rates").get((String) currencyType.get(currencyCount))));
-            System.out.println("Basic exchange " + currencyType.get(currencyCount) + " price: " + (Math.round((1 / (basicPrice)) * 100.0) / 100.0));
             double finallSellPrice = Math.round((1 / (basicPrice * buySpread)) * 100.0) / 100.0;
             double finallBuyPrice = Math.round((1 / (basicPrice * sellSpread)) * 100.0) / 100.0;
             currencyPrices.put(((String) currencyType.get(currencyCount)).concat("-SELL"), finallSellPrice);
@@ -49,8 +46,13 @@ class Currency {
         return finalExchangePrice;
     }
 
-    double returnSellValueForTest() {
-        return currencyPrices.get("EUR-SELL");
+    public Map returnCurrencyPrices() {
+
+        if (currencyPrices.size() <= 0) {
+            throw new IllegalArgumentException("Empty currency array!");
+        }
+
+        return currencyPrices;
     }
 
     private static String streamToString(InputStream inputStream) {
