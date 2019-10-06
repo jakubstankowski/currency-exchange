@@ -5,6 +5,7 @@ import java.util.*;
 
 public class ConsoleInterface {
 
+
     private boolean exit = false;
     private double moneyCount = 0;
     private String currencyType;
@@ -12,55 +13,53 @@ public class ConsoleInterface {
     private Currency currency = new Currency();
     private List<String> currencyList = new ArrayList<>();
 
+    private API API = new API();
+    private JSON JSON = new JSON();
+    private CurrencyBeans currencyBeans = new CurrencyBeans();
 
     public void showConsoleInterface() throws IOException {
-
         System.out.println("Welcome to standev exchange, this is currency list: ");
+        currencyBeans.calculateCurrencies(currencyList());
 
-        try {
-            currency.showCurrencyPrice(addToCurrencyList());
-            System.out.println("Which currency type you want buy, or sell? ");
-            getCurrencyType();
+        System.out.println("CURRENCIES: " + currencyBeans.showCurrenciesJSON());
+        System.out.println("Which currency type you want buy, or sell? ");
 
-            while (!exit) {
-                System.out.println("What do you want? buy|sell|exit ");
-                String input = inputScanner.nextLine();
+        getCurrencyType();
 
-                switch (input) {
-                    case "buy":
-                        System.out.println("How many " + currencyType + " you want buy? ");
-                        getMoneyCount();
-                        System.out.println("Your order: " + currency.calculateExchange(currencyType, "buy", moneyCount) + " ZŁ");
-                        exit = true;
-                        break;
-                    case "sell":
-                        System.out.println("How many " + currencyType + " you want sell? ");
-                        getMoneyCount();
-                        System.out.println("Your order: " + currency.calculateExchange(currencyType, "sell", moneyCount) + " ZŁ");
-                        exit = true;
-                        break;
-                    case "list":
-                        System.out.println("This is currency list: ");
-                        currency.showCurrencyPrice(addToCurrencyList());
-                        break;
-                    case "exit":
-                        System.out.println("Thanks for using my program! Standev 2019");
-                        exit = true;
-                        break;
-                }
+        while (!exit) {
+            System.out.println("What do you want? buy|sell|exit ");
+            String input = inputScanner.nextLine();
 
+            switch (input) {
+                case "buy":
+                    System.out.println("How many " + currencyType + " you want buy? ");
+                    getMoneyCount();
+                    System.out.println("Your order: " + currencyBeans.calculateExchange(currencyType, moneyCount, "buy"));
+                    exit = true;
+                    break;
+                case "sell":
+                    System.out.println("How many " + currencyType + " you want sell? ");
+                    getMoneyCount();
+                    System.out.println("Your order: " + currencyBeans.calculateExchange(currencyType, moneyCount, "sell"));
+                    exit = true;
+                    break;
+                case "list":
+                    System.out.println("CURRENCIES: " + currencyBeans.showCurrenciesJSON());
+                    break;
+                case "exit":
+                    System.out.println("Thanks for using my program! Standev 2019");
+                    exit = true;
+                    break;
             }
-            inputScanner.close();
 
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+        inputScanner.close();
 
 
     }
 
-    public List addToCurrencyList() {
-        String[] everyCurrencyType = new String[]{"EUR", "USD"};
+    public List<String> currencyList() {
+        String[] everyCurrencyType = new String[]{"EUR", "USD", "CHF"};
         currencyList.addAll(Arrays.asList(everyCurrencyType));
         return currencyList;
     }

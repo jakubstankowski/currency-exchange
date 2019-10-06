@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CurrencyTest {
 
-    private Currency currency = new Currency();
+   /* private Currency currency = new Currency();
     private ConsoleInterface consoleInterface = new ConsoleInterface();
 
     private List<String> currencyList = new ArrayList<>();
@@ -46,7 +46,7 @@ class CurrencyTest {
     }
 
 
-   /* @Test
+   *//* @Test
     public void shouldTakeUserInput() {
 
         String input = "add 5";
@@ -56,8 +56,8 @@ class CurrencyTest {
         System.out.println("in: "+in);
 
 
-       *//* assertEquals("add 5", inputOutput.getInput());*//*
-    }*/
-
+       *//**//* assertEquals("add 5", inputOutput.getInput());*//**//*
+    }*//*
+*/
 
 }
