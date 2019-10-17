@@ -12,12 +12,9 @@ public class ConsoleInterface {
     private Scanner inputScanner = new Scanner(System.in);
     private Currency currency = new Currency();
     private List<String> currencyList = new ArrayList<>();
-
-    private API API = new API();
-    private JSON JSON = new JSON();
     private CurrencyBeans currencyBeans = new CurrencyBeans();
 
-    public void showConsoleInterface() throws IOException {
+    void showConsoleInterface() throws IOException {
         System.out.println("Welcome to standev exchange, this is currency list: ");
         currencyBeans.calculateCurrencies(currencyList());
 
@@ -64,7 +61,7 @@ public class ConsoleInterface {
         return currencyList;
     }
 
-    public void getMoneyCount() {
+    private void getMoneyCount() {
         try {
             moneyCount = inputScanner.nextDouble();
         } catch (InputMismatchException e) {
@@ -72,7 +69,7 @@ public class ConsoleInterface {
         }
     }
 
-    public void getCurrencyType() {
+    private void getCurrencyType() {
         currencyType = inputScanner.nextLine();
         if (!currencyList.contains(currencyType)) {
             throw new IllegalArgumentException("This currency is not exist, please chose correct one!");
